@@ -37,7 +37,7 @@ how to use
 >
 >[Twitter](https://twitter.com/mr_joey0707)
 >
->[Coggle mind map] (https://coggle.it/diagram/WzRwAjCAbm_AquTD/t/-/d49927e3c2dbe46a62877a4fdb3ee68991934e750fef93495c036af75906a4c9)
+>[Coggle mind map](https://coggle.it/diagram/WzRwAjCAbm_AquTD/t/-/d49927e3c2dbe46a62877a4fdb3ee68991934e750fef93495c036af75906a4c9)
 
 ## Contributing
 
