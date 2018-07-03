@@ -2,14 +2,16 @@
 
 > The first project in the C++ module.
 
-pending
+A simplified Virtual Machine that takes in ASM instructions to
+perform simple arithmetics
 
 ## Installation
 
 iOS X & Linux:
 
 ```sh
-how to install
+git clone https://github.com/Kid-Seven-7/abstract_VM.git
+make
 ```
 
 Windows:
@@ -21,13 +23,13 @@ how to install
 ## Usage example
 
 how to use
-``code snippet``
+``./avm [filename] ``
 
 ## Release History
 
 * 0.0.1
     * Work in progress
-   
+
 ## Contributors
 
 **Joseph Ngoma**
@@ -44,4 +46,3 @@ how to use
 ## Contributing
 
 Not open to contributing at present
-
