@@ -31,8 +31,8 @@ std::vector<std::string> dump(std::vector<std::string> & inst){
 		temp += inst[i];
 		temp += " ";
 	}
-	for (size_t i = 0; i < parsed.size(); ++i)
-		std::cout <<"parsed "<<i<<" is "<< parsed[i] << '\n';
+	// for (size_t i = 0; i < parsed.size(); ++i)
+		// std::cout <<"parsed "<<i<<" is "<< parsed[i] << '\n';
 	return (parsed);
 }
 
