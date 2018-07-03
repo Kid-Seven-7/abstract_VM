@@ -6,12 +6,16 @@ SRC = $(SRCPATH)main.cpp\
 			$(SRCPATH)parsing.cpp\
 			$(SRCPATH)asthetics.cpp\
 			$(SRCPATH)virtualMachine.cpp\
+			$(SRCPATH)instValidation.cpp\
+			$(SRCPATH)errorHandling.cpp\
 			$(SRCPATH)int8.class.cpp
 
 SRCO = 	main.o\
 				parsing.o\
 				asthetics.o\
 				virtualMachine.o\
+				instValidation.o\
+				errorHandling.o\
 				int8.class.o
 
 COMP = clang++
@@ -21,13 +25,17 @@ CPPFLAGS = -Wall -Wextra -Werror
 all:	$(NAME)
 
 $(NAME):
-	$(COMP) -c $(SRC) $(CPPFLAGS)
-	$(COMP) -o $(NAME) $(SRCO)
+	@echo compiling source files
+	@$(COMP) -c $(SRC) $(CPPFLAGS)
+	@$(COMP) -o $(NAME) $(SRCO)
+	clear
 
 clean:
-	rm -f $(SRCO)
+	@echo removing object files
+	@rm -f $(SRCO)
 
 fclean: clean
-	rm -f $(NAME)
+	@echo removing exectutable
+	@rm -f $(NAME)
 
 re: fclean all
