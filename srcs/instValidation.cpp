@@ -4,9 +4,15 @@ void validate(std::string arr[5]){
 	const char *inst = arr[2].c_str();
 	const char *dataType = arr[3].c_str();
 	const char *dataVal = arr[4].c_str();
-
-		if(!validInst(inst, dataType)){
-			errorHandler(arr, INVALID_INST);
+	
+		if (strcmp(inst, "push") == 0 || strcmp(inst, "assert") == 0){
+			if(!validInstData(inst, dataType)){
+				errorHandler(arr, NO_DATA_TYPE);
+			}
+		}else{
+			if(!validInstNoData(inst, dataType)){
+				errorHandler(arr, INVALID_INST);
+			}
 		}
 		if (dataType){
 			if (!validDataType(dataType)){
@@ -20,7 +26,7 @@ void validate(std::string arr[5]){
 		}
 }
 
-bool validInst(const char *inst, const char *dataType){
+bool validInstNoData(const char *inst, const char *dataType){
 	if ((strcmp(inst, "pop") == 0 && strcmp(dataType, "") == 0)
 		|| (strcmp(inst, "dump") == 0 && strcmp(dataType, "") == 0)
 		|| (strcmp(inst, "add") == 0 && strcmp(dataType, "") == 0)
@@ -31,8 +37,13 @@ bool validInst(const char *inst, const char *dataType){
 		|| (strcmp(inst, "print") == 0 && strcmp(dataType, "") == 0)
 		|| (strcmp(inst, "exit") == 0 && strcmp(dataType, "") == 0)){
 		return (true);
-	}else if((strcmp(inst, "push") == 0 && dataType)
-		|| (strcmp(inst, "assert") == 0 && dataType))
+	}
+	return (false);
+}
+
+bool validInstData(const char *inst, const char *dataType){
+	if((strcmp(inst, "push") == 0 && strcmp(dataType, "") != 0)
+		|| (strcmp(inst, "assert") == 0 && strcmp(dataType, "") != 0))
 		return (true);
 	return (false);
 }

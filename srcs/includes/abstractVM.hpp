@@ -9,6 +9,7 @@
 #define INVALID_DATAVALUE 3
 #define INVALID_FORMAT 4
 #define VALUE_EXCEEDS_LIMIT 5
+#define NO_DATA_TYPE 6
 
 //Max defines
 #define MAX_INT8 std::numeric_limits<signed char>::max()
@@ -43,7 +44,8 @@
 
 	//bools
 	bool validDataType(const char *dataType);
-	bool validInst(const char *inst, const char *dataType);
+	bool validInstNoData(const char *inst, const char *dataType);
+	bool validInstData(const char *inst, const char *dataType);
 	bool validDataVal(const char *dataType, const char *dataVal);
 
 	//std::vectors

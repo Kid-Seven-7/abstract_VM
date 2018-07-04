@@ -18,10 +18,22 @@ void explodeInst(std::string inst){
 }
 
 void instExec(std::vector<std::string> insts){
+	static int set = 0;
 	printLine();
-	std::cout << "Instruction execution" << '\n';
+	std::cout
+	<< "Instruction set "
+	<< set
+	<<" execution"
+	<< '\n';
 	printLine();
 	for (size_t i = 0; i < insts.size(); ++i){
 		explodeInst(insts[i]);
 	}
+	std::cout
+	<< "Instruction set "
+	<< set
+	<<" completed"
+	<< '\n';
+	printLine();
+	set++;
 }
