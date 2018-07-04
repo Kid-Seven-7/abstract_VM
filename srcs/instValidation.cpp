@@ -4,14 +4,21 @@ void validate(std::string arr[5]){
 	const char *inst = arr[2].c_str();
 	const char *dataType = arr[3].c_str();
 	const char *dataVal = arr[4].c_str();
-	
-		if (strcmp(inst, "push") == 0 || strcmp(inst, "assert") == 0){
-			if(!validInstData(inst, dataType)){
-				errorHandler(arr, NO_DATA_TYPE);
+
+		if (strlen(inst) > 0){
+			if (inst[0] == ';'){
+				// if (inst[1] == ';')
+				// 	exitProg();
+				return;
 			}
-		}else{
-			if(!validInstNoData(inst, dataType)){
-				errorHandler(arr, INVALID_INST);
+			if (strcmp(inst, "push") == 0 || strcmp(inst, "assert") == 0){
+				if(!validInstData(inst, dataType)){
+					errorHandler(arr, NO_DATA_TYPE);
+				}
+			}else{
+				if(!validInstNoData(inst, dataType)){
+					errorHandler(arr, INVALID_INST);
+				}
 			}
 		}
 		if (dataType){
@@ -84,7 +91,10 @@ bool validDataType(const char *dataType){
 	if (strcmp(dataType, "float") == 0 || strcmp(dataType, "double") == 0)
 		return (true);
 	else if (strncmp(dataType, "int", 3) == 0){
-		if (dataType[3] == '8' || dataType[3] == '1' || dataType[3] == '3')
+		if (dataType[3] == '8')
+			return (true);
+		if ((dataType[3] == '1' && dataType[3] == '6')
+		||(dataType[3] == '3' && dataType[4] == '2'))
 			return (true);
 	}
 	return (false);

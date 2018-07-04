@@ -4,8 +4,8 @@
 	Keeps track of what line the instruction is on
 	- For bonus purposes
 */
-void newLine(std::vector<std::string> & inst, int reset){
-	static size_t line = 0;
+int newLine(std::vector<std::string> & inst, int reset){
+	static int line = 0;
 
 	if (reset == 0){
 		std::stringstream ss;
@@ -18,6 +18,7 @@ void newLine(std::vector<std::string> & inst, int reset){
 	}else{
 		line = 0;
 	}
+	return (line);
 }
 
 /*
@@ -49,24 +50,33 @@ void initParse(std::vector<std::string> & inst, std::string command){
 	std::string temp;
 	int words = 1;
 	int peren = 0;
-	int line = 0;
+
 	for (size_t i = 0; i <= command.length(); ++i){
-		if (command[i] == ' ')
-			words++;
-		if (command[i] == '(' || command[i] == ')')
-			peren++;
-		if (command[i] == '\n')
-			line++;
+		if (command[i] == ';')
+			while (++i <= command.length());
+		words += (command[i] == ' ') ? 1 : 0 ;
+		peren += (command[i] == '(') ? 1 : 0 ;
+		peren += (command[i] == ')') ? -1 : 0 ;
+		if (peren < 0){
+			std::cout
+			<< "\033[1;31mFailed to compile\033[0m\nIntruction is not valid\n"
+			<< "Cannot close perenthesis before opening them\n\033[1;33m"
+			<< command
+			<< "\033[0m"
+			<< '\n';
+			exit (1);
+		}
 	}
 
-	if(words == 1 || (words == 2 && peren == 2)){
+	if(words == 1 || (words == 2 && peren == 0)){
 		for (size_t i = 0; i <= command.length(); ++i){
+			if (command[i] == ';')
+				while (++i <= command.length());
 			if (command[i] == ' ' || command[i] == '(' || command[i] == ')' || i == command.length()){
 				inst.push_back(temp);
 				temp = "";
 				i++;
-				if (command[i] == '(')
-				i++;
+				i += (command[i] == '(') ? 1 : 0 ;
 			}
 			temp += command[i];
 		}
@@ -81,19 +91,18 @@ void initParse(std::vector<std::string> & inst, std::string command){
 	}
 }
 
-/*
-	Removes leading whitespaces from the command
-*/
-std::string trimComm(std::string command){
+std::string removeComments(std::string command){
 	std::string temp = "";
-	int start = 0;
-	for (size_t i = 0; i < command.length(); ++i){
-		if (start == 0){
-			while(command[++i] == ' ')
-				start++;
+	for (size_t i = 0; i < command.length(); ++i) {
+		if (command[i] == ';'){
+			temp = std::regex_replace(temp, std::regex("^ +| +$|( ) +"), "$1");
+			temp = regex_replace(temp, std::regex(" +"), " ");
+			return (temp);
 		}
 		temp += command[i];
 	}
+	temp = std::regex_replace(temp, std::regex("^ +| +$|( ) +"), "$1");
+	temp = regex_replace(temp, std::regex(" +"), " ");
 	return (temp);
 }
 
@@ -104,16 +113,17 @@ std::string trimComm(std::string command){
 void mainLoop(){
 	std::string command;
 	std::vector<std::string> inst;
-	// std::vector<std::vector<std::string> > allInst;
 	int breaker = 1;
+	int line = 0;
 	while (breaker){
 		getline(std::cin, command);
-		printf("comm before trim |%s|\n", command.c_str());
-		if (command[0] == ' ')
-			command = trimComm(command);
-			printf("comm after trim |%s|\n", command.c_str());
 
-		newLine(inst, 0);
+		command = std::regex_replace(command, std::regex("^ +| +$|( ) +"), "$1");
+		command = regex_replace(command, std::regex(" +"), " ");
+
+		line = newLine(inst, 0);
+
+		command = removeComments(command);
 
 		initParse(inst, command);
 
@@ -123,12 +133,6 @@ void mainLoop(){
 				instExec(inst);
 				newLine(inst, 1);
 				inst.clear();
-			}
-			if (inst[i] == ";;"){
-				printLine();
-				std::cout << "Exiting Abstract VM" << '\n';
-				printLine();
-				exit(0);
 			}
 		}
 	}

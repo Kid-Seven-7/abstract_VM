@@ -25,6 +25,8 @@
 #define MIN_FLOAT std::numeric_limits<float>::min()
 #define MIN_DOUBLE std::numeric_limits<double>::min()
 
+#include <cstdlib>
+#include <regex>
 #include <string>
 #include <sstream>
 #include <iostream>
@@ -35,6 +37,7 @@
 
 //Function declararions
 	//Voids
+	void exitProg();
 	void mainLoop();
 	void printLine();
 	void validate(std::string arr[5]);

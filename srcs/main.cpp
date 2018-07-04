@@ -6,8 +6,11 @@
 	- just points to the logic
 */
 int main (){
+	system("clear");
 	printLine();
-	std::cout << "Abstract VM" << '\n';
+	for (int i = 0; i < 20; ++i)
+		std::cout << " ";
+	std::cout << "\033[5mAbstract VM\033[0m" << '\n';
 	printLine();
 
 	mainLoop();

@@ -1,7 +1,9 @@
 #ifndef __INT8_HPP__
 #define __INT8_HPP__
 
-class Int8 {
+#include "abstractVM.hpp"
+
+class Int8 : public IOperand{
 	private:
 		int _precision;
 		std::string _type;

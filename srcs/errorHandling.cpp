@@ -1,5 +1,7 @@
 #include "includes/abstractVM.hpp"
 
+  // \033[1;31m\033[0m
+
 void errorHandler(std::string arr[5], int parseCode){
 	if (parseCode != 0){
 		const char *lineNo = arr[1].c_str();

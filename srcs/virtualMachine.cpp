@@ -17,7 +17,9 @@ void explodeInst(std::string inst){
 		validate(arr);
 }
 
+
 void instExec(std::vector<std::string> insts){
+	std::vector<IOperand> theStack;
 	static int set = 0;
 	printLine();
 	std::cout
@@ -25,10 +27,16 @@ void instExec(std::vector<std::string> insts){
 	<< set
 	<<" execution"
 	<< '\n';
+
+	std::cout << insts.size() << '\n';
+	std::cout << insts[0] << '\n';
 	printLine();
 	for (size_t i = 0; i < insts.size(); ++i){
 		explodeInst(insts[i]);
+
 	}
+
+
 	std::cout
 	<< "Instruction set "
 	<< set

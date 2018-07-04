@@ -1,6 +1,8 @@
 #ifndef __IOPERAND_HPP__
 #define __IOPERAND_HPP__
 
+#include "abstractVM.hpp"
+
 class IOperand {
 	private:
 		/* Variable types
@@ -23,8 +25,8 @@ class IOperand {
 		*/
 
 		//getters
-			virtual int getPrecision(void) const = 0;
-			virtual std::string getType(void) const = 0;
+			// virtual int getPrecision(void) const = 0;
+			// virtual std::string getType(void) const = 0;
 
 		//setters
 			virtual void setPrecision(int deci) = 0;
@@ -32,13 +34,13 @@ class IOperand {
 
 		//constructor(s)
 			//default
-			IOperand();
+			// IOperand();
 
 			//copy
-			IOperand(const IOperand & rhs);
+			// IOperand(const IOperand & rhs);
 
 		//destructor
-			~IOperand();
+			// ~IOperand();
 
 		//Overloads
 			//Operator Overloads
@@ -49,7 +51,7 @@ class IOperand {
 			virtual IOperand const * operator%(IOperand const & rhs) const = 0;
 
 			//ToString Overload
-			virtual std::string const & ToString(void) const = 0;
+			// virtual std::string const & ToString(void) const = 0;
 };
 
 #endif
