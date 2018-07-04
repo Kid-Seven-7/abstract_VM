@@ -1,7 +1,7 @@
 #include "includes/abstractVM.hpp"
 
-void explodeInst(std::string inst){
-	std::string arr[5];
+void explodeInst(std::string inst, std::string *arr){
+	// std::string arr[5];
 	int i = 0;
 
 	std::stringstream ss;
@@ -15,28 +15,32 @@ void explodeInst(std::string inst){
 
 	if (arr[0] != "")
 		validate(arr);
-}
 
+	// return (arr);
+}
 
 void instExec(std::vector<std::string> insts){
 	std::vector<IOperand> theStack;
+	std::string arr[5];
+	std::string *ptr = arr;
 	static int set = 0;
+
 	printLine();
 	std::cout
 	<< "Instruction set "
 	<< set
 	<<" execution"
 	<< '\n';
-
-	std::cout << insts.size() << '\n';
-	std::cout << insts[0] << '\n';
 	printLine();
-	for (size_t i = 0; i < insts.size(); ++i){
-		explodeInst(insts[i]);
 
+	size_t size = insts.size();
+	for (size_t i = 1; i < size; ++i){
+		explodeInst(insts[i], ptr);
+		brain(ptr, theStack);
 	}
 
 
+	printLine();
 	std::cout
 	<< "Instruction set "
 	<< set

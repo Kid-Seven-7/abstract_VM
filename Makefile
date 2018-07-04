@@ -8,6 +8,7 @@ SRC = $(SRCPATH)main.cpp\
 			$(SRCPATH)virtualMachine.cpp\
 			$(SRCPATH)instValidation.cpp\
 			$(SRCPATH)errorHandling.cpp\
+			$(SRCPATH)vmLogic.cpp\
 			$(SRCPATH)int8.class.cpp
 
 SRCO = 	main.o\
@@ -16,6 +17,7 @@ SRCO = 	main.o\
 				virtualMachine.o\
 				instValidation.o\
 				errorHandling.o\
+				vmLogic.o\
 				int8.class.o
 
 COMP = clang++

@@ -55,6 +55,7 @@
 	std::vector<std::string> dump();
 
 	//std::strings
+	void brain(std::string *arr, std::vector<IOperand> & stack);
 	//ints
 	//doubles
 #endif
