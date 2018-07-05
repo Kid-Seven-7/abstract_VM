@@ -20,7 +20,6 @@
 
 //Copy
 	Int8::Int8(const Int8 & rhs){
-		std::cout << "Copy constuctor called" << std::endl;
 		this->_precision = rhs._precision;
 		this->_type = rhs._type;
 		this->_value = rhs._value;
@@ -28,7 +27,6 @@
 
 //simple
 	Int8::Int8(unsigned char value){
-		std::cout << "A simple constuctor called" << std::endl;
 		this->_precision = 0;
 		this->_type = "Int8";
 		this->_value = value;
@@ -36,7 +34,6 @@
 
 //deconstructor
 	Int8::~Int8(){
-		std::cout << "Destructor called\n";
 	}
 
 //Overloads
