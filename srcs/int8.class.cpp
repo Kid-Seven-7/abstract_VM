@@ -1,72 +1,71 @@
-#include "includes/abstractVM.hpp"
+#include "includes/Int8.hpp"
 
-//getters
-	int Int8::getPrecision(){return (this -> _precision);}
-	std::string Int8::getType(){return (this -> _type);}
-	unsigned char Int8::getValue(){return (this -> _value);}
+Int8_class::Int8_class()
+	: m_Precision(0),
+	  m_DataType(Int8),
+	  m_DataValue("")
+{}
 
-//setters
-	void Int8::setPrecision(int precision){this->_precision = precision;}
-	void Int8::setType(std::string type){this->_type = type;}
-	void Int8::setValue(unsigned char value){this->_value = value;}
+Int8_class::Int8_class(const Int8_class &rhs)
+	: m_Precision(rhs.m_Precision),
+	  m_DataType(rhs.m_DataType),
+	  m_DataValue(rhs.m_DataValue)
+{}
 
-//constructor(s)
-//Default
-	Int8::Int8(){
-		this->_precision = 0;
-		this->_type = "Int8";
-		this->_value = 0;
-	}
+Int8_class::Int8_class(std::string value)
+	: m_Precision(0),
+	  m_DataType(Int8),
+	  m_DataValue(value)
+{}
 
-//Copy
-	Int8::Int8(const Int8 & rhs){
-		this->_precision = rhs._precision;
-		this->_type = rhs._type;
-		this->_value = rhs._value;
-	}
+int Int8_class::getPrecision() const
+{
+	return (m_Precision);
+}
 
-//simple
-	Int8::Int8(unsigned char value){
-		this->_precision = 0;
-		this->_type = "Int8";
-		this->_value = value;
-	}
+std::string Int8_class::getValue() const
+{
+	return (m_DataValue);
+}
 
-//deconstructor
-	Int8::~Int8(){
-	}
+eOperand Int8_class::getType(void) const
+{
+	return (eOperand::Int8);
+}
 
-//Overloads
-	//Assign Overload
-		const Int8 * Int8::operator=(const Int8 & rhs){
-			this->_precision = rhs._precision;
-			this->_type = rhs._type;
-			this->_value = rhs._value;
+IOperand const *Int8_class::operator+(IOperand const &rhs) const
+{
+	std::cout << rhs.getPrecision() << '\n';
+	return (&rhs);
+}
 
-			return (this);
-		}
+IOperand const *Int8_class::operator-(IOperand const &rhs) const
+{
+	std::cout << rhs.getPrecision() << '\n';
+	return (&rhs);
+}
 
-		// Int8 const * operator+(Int8 const & rhs) const{
-		//
-		// }
-		// Int8 const * operator-(Int8 const & rhs) const{
-		//
-		// }
-		// Int8 const * operator*(Int8 const & rhs) const{
-		//
-		// }
-		// Int8 const * operator/(Int8 const & rhs) const{
-		//
-		// }
-		// Int8 const * operator%(Int8 const & rhs) const{
-		//
-		// }
+IOperand const *Int8_class::operator*(IOperand const &rhs) const
+{
+	std::cout << rhs.getPrecision() << '\n';
+	return (&rhs);
+}
 
-	//ToString Overload
-		std::string const & Int8::ToString(){
-			// std::stringstream stream;
-			// stream << "some_message : " << std::endl;
-			// const std::string str =  stream.str();
-			const std::string& ref = this->_type;
-		 return (ref);
-		}
+IOperand const *Int8_class::operator/(IOperand const &rhs) const
+{
+	std::cout << rhs.getPrecision() << '\n';
+	return (&rhs);
+}
+
+IOperand const *Int8_class::operator%(IOperand const &rhs) const
+{
+	std::cout << rhs.getPrecision() << '\n';
+	return (&rhs);
+}
+
+std::string const &Int8_class::toString() const
+{
+	std::string *temp = new std::string;
+	*temp = this->getValue();
+	return (*temp);
+}

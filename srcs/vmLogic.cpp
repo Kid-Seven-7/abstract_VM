@@ -1,98 +1,331 @@
 #include "includes/abstractVM.hpp"
 
-// \033[1;31m\033[0m
+eOperand Type;
 
-void pop(std::vector<IOperand> & stack) {
-  if (stack.size() > 0)
-    stack.pop_back();
-  else
-    std::cout << "\033[1;31mCan not pop empty stack\033[0m" << '\n';
+std::string getValue(std::string command){
+	size_t start;
+	std::string val = "";
+	start = ((command.find('(')));
+
+	while (command[++start] != ')')
+		val += command[start];
+	return (val);
 }
 
-void add(std::vector<IOperand> & stack) {
-  if (stack.size() > 1){
-    // Int8 temp(const stack.back());
-    // stack.pop_back();
-    // Int8 temp2(stack.back());
-    // stack.pop_back();
-    //
-    // temp.getValue() += temp2.getValue();
-    // stack.push_back(temp);
-  }
-  else
-    std::cout << "\033[1;31mCan not add in stack with less than 2 items\033[0m" << '\n';
+eOperand getType(std::string command){
+	if (command.find("int8")!=std::string::npos)
+			return (Int8);
+	if (command.find("int16")!=std::string::npos)
+			return (Int16);
+	if (command.find("int32")!=std::string::npos)
+		return (Int32);
+	if (command.find("float")!=std::string::npos)
+		return (Float);
+	else
+		return (Double);
 }
 
-void dump(std::vector<IOperand> & stack) {
-  size_t size = stack.size();
+void checkFlow(eOperand Type, std::string val, std::string command){
+	double min;
+	double max;
+	double base = stod(val);
 
-  for (size_t i = 0; i < size; i++) {
-    //TODO
-    //ToString overload
-  }
-
+	switch (Type) {
+		case 0:
+			//int8;
+			min = std::numeric_limits<int8_t>::min();
+			max = std::numeric_limits<int8_t>::max();
+			if (base >= min && base <= max)
+				return;
+			else{
+				Log(OUT_OF_RANGE, command);
+				Log(0, "");
+			}
+			break;
+		case 1:
+			//int16;
+			min = std::numeric_limits<int16_t>::min();
+			max = std::numeric_limits<int16_t>::max();
+			if (base >= min && base <= max)
+				return;
+			else{
+				Log(OUT_OF_RANGE, command);
+				Log(0, "");
+			}
+			break;
+		case 2:
+			//int8;
+			min = std::numeric_limits<int32_t>::min();
+			max = std::numeric_limits<int32_t>::max();
+			if (base >= min && base <= max)
+				return;
+			else{
+				Log(OUT_OF_RANGE, command);
+				Log(0, "");
+			}
+			break;
+		case 3:
+			//float;
+			min = std::numeric_limits<float>::min();
+			max = std::numeric_limits<float>::max();
+			if (base >= min && base <= max)
+				return;
+			else{
+				Log(OUT_OF_RANGE, command);
+				Log(0, "");
+			}
+			break;
+		case 4:
+			//double;
+			min = std::numeric_limits<double>::min();
+			max = std::numeric_limits<double>::max();
+			if (base >= min && base <= max)
+				return;
+			else{
+				Log(OUT_OF_RANGE, command);
+				Log(0, "");
+			}
+			break;
+		default:
+			Log(OUT_OF_RANGE, command);
+			Log(0,"");
+	}
 }
 
-void assertFunc(std::vector<IOperand> & stack,std::string dataType,std::string dataVal) {
-// (void)stack;
-  if (strcmp(dataType.c_str(), "int8") == 0){
-    try{
-      int i = stoi(dataVal);
-      Int8 val(i);
-      stack.push_back(val);
-    }
-    catch(std::exception err){
-      std::cout << "error" << '\n';
-    }
-  }
+void _pop(std::vector<IOperand const *> &stack){
+	stack.pop_back();
 }
 
+void _push(std::string command, std::vector<IOperand const *> &stack){
+	eOperand type = getType(command);
+	std::string val = getValue(command);
+	OperandFactory Fac;
+	IOperand const *create = Fac.createOperand(type, val);
 
-void push(std::vector<IOperand> & stack,std::string dataType,std::string dataVal) {
-// (void)stack;
-  if (strcmp(dataType.c_str(), "int8") == 0){
-    try{
-      int i = stoi(dataVal);
-      Int8 val(i);
-      stack.push_back(val);
-    }
-    catch(std::exception err){
-      std::cout << "error" << '\n';
-    }
-  }
+	stack.push_back(create);
 }
 
-// void function(std::vector<IOperand> & stack) {
-//   //TODO
-// }
-//
-// void function(std::vector<IOperand> & stack,std::string a,std::string b) {
-//   //TODO
-// }
+void _assert(std::string command, std::vector<IOperand const *> &stack){
+	size_t len = (stack.size() - 1);
+	std::string temp = stack.at(len)->toString();
+	eOperand type = getType(command);
+	std::string val = getValue(command);
 
-void brain(std::string arr[5], std::vector<IOperand> & stack){
-  const char * inst = arr[2].c_str();
-  const char * dataType = arr[3].c_str();
-  const char * dataVal = arr[4].c_str();
+	if (!(stack.at(len)->getType() == type && stack.at(len)->toString() == val)){
+		Log(ASSERTED_VALUE_NOT_EQUAL, command);
+		Log(0, "");
+	}
+}
 
-    if (strcmp(inst, "pop") == 0)
-      pop(stack);
-    if (strcmp(inst, "dump") == 0)
-      dump(stack);
-    if (strcmp(inst, "add") == 0)
-      add(stack);
-    // if (strcmp(inst, "sub") == 0)
-    //   function(stack);
-    // if (strcmp(inst, "div") == 0)
-    //   function(stack);
-    // if (strcmp(inst, "mul") == 0)
-    //   function(stack);
-    // if (strcmp(inst, "mod") == 0)
-    //   function(stack);
-    // if (strcmp(inst, "print") == 0)
-    //   function(stack);
-    if (strcmp(inst, "push") == 0)
-      push(stack, dataType, dataVal);
-    if (strcmp(inst, "assert") == 0)
-      assertFunc(stack, dataType, dataVal);
+void _print(std::string command, std::vector<IOperand const *> &stack){
+	char c;
+	size_t len = stack.size();
+	if (stack.empty()){
+		Log(EMPTY_STACK, command);
+		Log(0,"");
+	}
+	if (stack.at(len - 1)->getType() == Int8){
+		std::string temp = stack.at(len - 1)->toString();
+		if ((c = stoi(temp)) && GetErrorCount() == 0)
+		std::cout << c << '\n';
+	}
+}
+
+void _dump(std::vector<IOperand const *> &stack){
+	if (!stack.empty()){
+		for (size_t i = (stack.size() - 1); i != 0 ; --i)
+			std::cout << stack[i]->toString() << '\n';
+		std::cout << stack[0]->toString() << '\n';
+	}
+}
+
+void _add(std::string command, std::vector<IOperand const *> &stack){
+	if(stack.size() < 2){
+		Log(NEED_TWO_VALUES, command);
+		Log(0,"");
+	}else{
+		size_t len = stack.size() - 1;
+		eOperand type1 = stack.at(len)->getType();
+		eOperand type2 = stack.at(len - 1)->getType();
+		eOperand type = (type1 > type2) ? type1 : type2 ;
+
+		OperandFactory Fac;
+		std::string val;
+
+		if (type < 3)
+		val = std::to_string(stoi(stack.at(len)->toString()) + stoi(stack.at(len - 1)->toString()));
+		if (type > 2)
+		val = std::to_string(stod(stack.at(len)->toString()) + stod(stack.at(len - 1)->toString()));
+
+		stack.pop_back();
+		stack.pop_back();
+
+		IOperand const *create = Fac.createOperand(type, val);
+		checkFlow(type, val, command);
+		stack.push_back(create);
+		stack.at(stack.size() - 1)->toString();
+	}
+}
+
+void _sub(std::string command, std::vector<IOperand const *> &stack){
+	if(stack.size() < 2){
+		Log(NEED_TWO_VALUES, command);
+		Log(0,"");
+	}else{
+		size_t len = stack.size() - 1;
+		eOperand type1 = stack.at(len)->getType();
+		eOperand type2 = stack.at(len - 1)->getType();
+		eOperand type = (type1 > type2) ? type1 : type2 ;
+		OperandFactory Fac;
+		std::string val;
+
+		if (type < 3)
+		val = std::to_string(stoi(stack.at(len)->toString()) - stoi(stack.at(len - 1)->toString()));
+		if (type > 2)
+		val = std::to_string(stod(stack.at(len)->toString()) - stod(stack.at(len - 1)->toString()));
+
+		stack.pop_back();
+		stack.pop_back();
+
+		IOperand const *create = Fac.createOperand(type, val);
+		checkFlow(type, val, command);
+		stack.push_back(create);
+		stack.at(stack.size() - 1)->toString();
+	}
+}
+
+void _mul(std::string command, std::vector<IOperand const *> &stack){
+	if(stack.size() < 2){
+		Log(NEED_TWO_VALUES, command);
+		Log(0,"");
+	}else{
+		size_t len = stack.size() - 1;
+		eOperand type1 = stack.at(len)->getType();
+		eOperand type2 = stack.at(len - 1)->getType();
+		eOperand type = (type1 > type2) ? type1 : type2 ;
+		OperandFactory Fac;
+		std::string val;
+
+		if (type < 3)
+		val = std::to_string(stoi(stack.at(len)->toString()) * stoi(stack.at(len - 1)->toString()));
+		if (type > 2)
+		val = std::to_string(stod(stack.at(len)->toString()) * stod(stack.at(len - 1)->toString()));
+
+		stack.pop_back();
+		stack.pop_back();
+
+		IOperand const *create = Fac.createOperand(type, val);
+		checkFlow(type, val, command);
+		stack.push_back(create);
+		stack.at(stack.size() - 1)->toString();
+	}
+}
+
+void _div(std::string command, std::vector<IOperand const *> &stack){
+	size_t len = stack.size() - 1;
+	if(stack.size() < 2){
+		Log(NEED_TWO_VALUES, command);
+		Log(0,"");
+	}else{
+		if(stack.at(len)->toString() == "0"){
+			Log(DIV_BY_ZERO, command);
+			Log(0, "");
+		}else{
+
+			eOperand type1 = stack.at(len)->getType();
+			eOperand type2 = stack.at(len - 1)->getType();
+			eOperand type = (type1 > type2) ? type1 : type2 ;
+			OperandFactory Fac;
+			std::string val;
+
+			if (type < 3)
+			val = std::to_string(stoi(stack.at(len - 1)->toString()) / stoi(stack.at(len)->toString()));
+			if (type > 2)
+			val = std::to_string(stod(stack.at(len - 1)->toString()) / stod(stack.at(len)->toString()));
+
+			stack.pop_back();
+			stack.pop_back();
+
+			IOperand const *create = Fac.createOperand(type, val);
+			checkFlow(type, val, command);
+			stack.push_back(create);
+			stack.at(stack.size() - 1)->toString();
+		}
+	}
+}
+
+void _mod(std::string command, std::vector<IOperand const *> &stack){
+	std::cout << "inside mod" << '\n';
+	size_t len = stack.size() - 1;
+	if(stack.size() < 2){
+		Log(NEED_TWO_VALUES, command);
+		Log(0,"");
+	}else{
+		if(stack.at(len - 1)->toString() == "0"){
+			Log(DIV_BY_ZERO, command);
+			Log(0, "");
+		}else{
+
+			eOperand type1 = stack.at(len)->getType();
+			eOperand type2 = stack.at(len - 1)->getType();
+			eOperand type = (type1 > type2) ? type1 : type2 ;
+			OperandFactory Fac;
+			std::string val;
+
+			if (type < 3)
+			val = std::to_string(stoi(stack.at(len)->toString()) - (stoi(stack.at(len)->toString()) / stoi(stack.at(len - 1)->toString())) * stoi(stack.at(len - 1)->toString()));
+			if (type > 2){
+				double val1 = stod(stack.at(len)->toString());
+				double val2 = stod(stack.at(len - 1)->toString());
+				val = std::to_string(fmod(val1, val2));
+			}
+
+			stack.pop_back();
+			stack.pop_back();
+
+			IOperand const *create = Fac.createOperand(type, val);
+			checkFlow(type, val, command);
+			stack.push_back(create);
+			stack.at(stack.size() - 1)->toString();
+		}
+	}
+}
+
+void _exit(){
+	PrintLine("Ending current program", INFO);
+	setMulti();
+	resetErrors();
+}
+
+void execute(std::vector<std::string> &InstructionSet){
+	std::string command;
+	std::vector<IOperand const *> stack;
+	for (size_t i = 0; i < InstructionSet.size(); ++i) {
+		command = InstructionSet[i];
+
+		if (command.find("pop")!=std::string::npos)
+			_pop(stack);
+		if (command.find("push")!=std::string::npos)
+			_push(command, stack);
+		if (command.find("assert")!=std::string::npos)
+			_assert(command, stack);
+		if (command.find("print")!=std::string::npos)
+			_print(command, stack);
+		if (command.find("dump")!=std::string::npos)
+			_dump(stack);
+		if (command.find("add")!=std::string::npos)
+			_add(command, stack);
+		if (command.find("sub")!=std::string::npos)
+			_sub(command, stack);
+		if (command.find("mul")!=std::string::npos)
+			_mul(command, stack);
+		if (command.find("div")!=std::string::npos)
+			_div(command, stack);
+		if (command.find("mod")!=std::string::npos){
+			std::cout << "mod found" << '\n';
+			_mod(command, stack);
+		}
+		if (command.find("exit")!=std::string::npos)
+			_exit();
+	}
 }

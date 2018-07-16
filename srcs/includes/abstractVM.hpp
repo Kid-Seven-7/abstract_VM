@@ -1,61 +1,86 @@
-#ifndef __ABSTRACTVM_HPP__
-#define __ABSTRACTVM_HPP__
+#ifndef _ABST_HPP_
+#define _ABST_HPP_
 
-//Error defines
-#define UNKNOWN_ERROR -1
-#define VALID_INST 0
-#define INVALID_INST 1
-#define INVALID_DATATYPE 2
-#define INVALID_DATAVALUE 3
-#define INVALID_FORMAT 4
-#define VALUE_EXCEEDS_LIMIT 5
-#define NO_DATA_TYPE 6
+enum eOperand
+{
+	Int8,
+	Int16,
+	Int32,
+	Float,
+	Double
+};
 
-//Max defines
-#define MAX_INT8 std::numeric_limits<signed char>::max()
-#define MAX_INT16 std::numeric_limits<short>::max()
-#define MAX_INT32 std::numeric_limits<int>::max()
-#define MAX_FLOAT std::numeric_limits<float>::max()
-#define MAX_DOUBLE std::numeric_limits<double>::max()
+//standard lib includes
+		#include <cmath>
+    #include <regex>
+		#include <string>
+		#include <vector>
+    #include <limits>
+		#include <fstream>
+		#include <sstream>
+		#include <cstdlib>
+		#include <iostream>
+		#include <exception>
 
-//Min defines
-#define MIN_INT8 std::numeric_limits<signed char>::min()
-#define MIN_INT16 std::numeric_limits<short>::min()
-#define MIN_INT32 std::numeric_limits<int>::min()
-#define MIN_FLOAT std::numeric_limits<float>::min()
-#define MIN_DOUBLE std::numeric_limits<double>::min()
+//Custom hedaers files
+// #include "../includes/Int8.hpp"
+// #include "../includes/Int16.hpp"
+    #include "../includes/exceptions.hpp"
+		#include "../includes/IOperand.hpp"
+    #include "../includes/OperandFactory.hpp"
 
-#include <cstdlib>
-#include <regex>
-#include <string>
-#include <sstream>
-#include <iostream>
-#include <vector>
-#include "IOperand.class.hpp"
-#include "int8.class.hpp"
+// #defines
+    //Display
+    #define INFO 0
+    #define WARNING 1
+    #define ERROR 2
 
+    //Errorlog
+    #define INVALID_INSTRUCTION_PASSED 1
+    #define MULTIPLE_INSTRUCTIONS_PASSED 2
+    #define MULTIPLE_DATA_TYPES_PASSED 3
+    #define EMPTY_STACK 4
+    #define INVALID_FLAG_PASSED 5
+    #define INVALID_DATA_VALUE_FORMAT 6
+    #define INVALID_DATA_VALUE 7
+		#define OUT_OF_RANGE 8
+		#define ASSERTED_VALUE_NOT_EQUAL 9
+		#define NEED_TWO_VALUES 10
+		#define DIV_BY_ZERO 11
+		#define EMPTY_PEREN 12
+    #define NO_DATA_TYPE 13
 
-//Function declararions
-	//Voids
-	void exitProg();
-	void mainLoop();
-	void printLine();
-	void validate(std::string arr[5]);
-	void newLine(std::vector<std::string> & inst);
-	void instExec(std::vector<std::string> insts);
-	void errorHandler(std::string arr[5], int parseCode);
+//Function declarations
+    //ints
+    int GetErrorCount();
 
-	//bools
-	bool validDataType(const char *dataType);
-	bool validInstNoData(const char *inst, const char *dataType);
-	bool validInstData(const char *inst, const char *dataType);
-	bool validDataVal(const char *dataType, const char *dataVal);
+    //bools
+    bool isVerbose();
+    bool Semi();
+    bool Error();
+    bool Multi();
+    bool exited();
+		bool getError();
 
-	//std::vectors
-	std::vector<std::string> dump();
+    //voids
+    void setSemi();
+    void setMulti();
+		void setError();
+    void exitFound();
+		void showError();
+    void resetLine();
+    void setVerbose();
+    void resetErrors();
+    void dumpErrorLog();
+    void Log(int error, std::string command);
+    void PrintLine(std::string message, int status);
+		void execute(std::vector<std::string> &InstructionSet);
+    void parse(std::string& command,	std::vector<std::string>& InstructionSet);
 
-	//std::strings
-	void brain(std::string *arr, std::vector<IOperand> & stack);
-	//ints
-	//doubles
+		//enums
+		eOperand getType(std::string command);
+
+		//std::strings
+		std::string strip(std::string &command);
+
 #endif
