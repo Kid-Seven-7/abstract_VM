@@ -1,6 +1,6 @@
 # Abstract VM
 
-###### by Kid-Seven-7
+<div style="text-align: right"> by Joseph L. ngoma </div>
 
 > The first project in the C++ module.
 >A simplified Virtual Machine that takes in ASM instructions to
