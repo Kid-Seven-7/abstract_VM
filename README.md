@@ -1,7 +1,5 @@
 # Abstract VM
 
-<div style="text-align: right"> by Joseph L. ngoma </div>
-
 > The first project in the C++ module.
 >A simplified Virtual Machine that takes in ASM instructions to
 perform simple arithmetics
@@ -11,6 +9,8 @@ Abstract VM is a program that allows the user to perform simple arithmetics in p
 Instructions that can be performed include:
 >push- To push a value onto the stack ``push int8(42)``
 >
+>assert- Compares the passed value to that on top of the stack ``assert int8(42)``
+>
 >pop- To remove a value from the stack ``pop``
 >
 >print- To display the ASCII representation of a value, must be an int8 from 32- 126 ``print``
@@ -19,11 +19,13 @@ Instructions that can be performed include:
 >
 >add- Pop the two top most values, adds them and pushes their sum ``add``
 >
->sub- Pop the two top most values, subtracts them and pushes result ``add``
+>sub- Pop the two top most values, subtracts them and pushes result ``sub``
 >
->mul- Pop the two top most values, multiples them and pushes their product ``add``
+>mul- Pop the two top most values, multiples them and pushes their product ``mul``
 >
->div- Pop the two top most values, divides them and pushes the result ``add``
+>div- Pop the two top most values, divides them and pushes the result ``div``
+>
+>mod- Pop the two top most values, divides them and pushes the remainder ``mod``
 >
 >exit- Ends the current instruction set ``exit``
 >
