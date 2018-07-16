@@ -1,5 +1,7 @@
 # Abstract VM
 
+###### by Kid-Seven-7
+
 > The first project in the C++ module.
 >A simplified Virtual Machine that takes in ASM instructions to
 perform simple arithmetics
