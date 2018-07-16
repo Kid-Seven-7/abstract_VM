@@ -1,9 +1,30 @@
 # Abstract VM
 
 > The first project in the C++ module.
-
-A simplified Virtual Machine that takes in ASM instructions to
+>A simplified Virtual Machine that takes in ASM instructions to
 perform simple arithmetics
+
+Abstract VM is a program that allows the user to perform simple arithmetics in pseudo assembly.
+
+Instructions that can be performed include:
+>push- To push a value onto the stack ``push int8(42)``
+>
+>pop- To remove a value from the stack ``pop``
+>
+>print- To display the ASCII representation of a value, must be an int8 from 32- 126 ``print``
+>
+>dump- To output all value currently on the stack, starting with the top most value ``dump``
+>
+>add- Pop the two top most values, adds them and pushes their sum ``add``
+>
+>sub- Pop the two top most values, subtracts them and pushes result ``add``
+>
+>mul- Pop the two top most values, multiples them and pushes their product ``add``
+>
+>div- Pop the two top most values, divides them and pushes the result ``add``
+>
+>exit- Ends the current instruction set ``exit``
+>
 
 ## Installation
 
@@ -17,18 +38,24 @@ make
 Windows:
 
 ```sh
-how to install
+git clone https://github.com/Kid-Seven-7/abstract_VM.git
+make
 ```
 
 ## Usage example
 
-how to use
-``./avm [filename] ``
+With file ``./avm [filename] [flags] ``
+
+with the stdin ``./avm [flags] ``
+
+Flags ``-v (Verbose), -e (shaow all errors)``
 
 ## Release History
 
+* 0.0.2
+	* we think code_ Beta
 * 0.0.1
-    * Work in progress
+  * we think code_ version
 
 ## Contributors
 
