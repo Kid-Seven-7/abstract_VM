@@ -57,7 +57,7 @@ Flags ``-v (Verbose), -e (shaow all errors)``
 ## Release History
 
 * 0.0.2
-	* we think code_ Beta
+	* In progress
 * 0.0.1
   * we think code_ version
 
