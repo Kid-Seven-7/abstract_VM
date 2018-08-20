@@ -1,5 +1,5 @@
-# Abstract VM
-<img align="right" src="https://raw.githubusercontent.com/Kid-Seven-7/images/master/SprayWhat.png" width="48">
+# Abstract VM <img align="right" src="https://raw.githubusercontent.com/Kid-Seven-7/images/master/SprayWhat.png" width="48">
+
 ###### the first project of the C++ module at [we think code_](https://www.wethinkcode.co.za/)
 
 >A simplified Virtual Machine that takes in ASM instructions to
