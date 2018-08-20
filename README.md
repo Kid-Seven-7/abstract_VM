@@ -1,5 +1,5 @@
 # Abstract VM
-![alt text](https://www.google.co.za/imgres?imgurl=https%3A%2F%2Fimages.pexels.com%2Fphotos%2F67636%2Frose-blue-flower-rose-blooms-67636.jpeg%3Fauto%3Dcompress%26cs%3Dtinysrgb%26h%3D350&imgrefurl=https%3A%2F%2Fwww.pexels.com%2Fsearch%2Fflower%2F&docid=5UbOpOqf9qM23M&tbnid=ZAXhvwKefKr6jM%3A&vet=10ahUKEwib5ovAxfvcAhUsDcAKHaSWBlIQMwiyASgAMAA..i&w=528&h=350&bih=1006&biw=1920&q=image&ved=0ahUKEwib5ovAxfvcAhUsDcAKHaSWBlIQMwiyASgAMAA&iact=mrc&uact=8)
+![alt text](https://raw.githubusercontent.com/Kid-Seven-7/images/master/SprayWhat.png)
 ###### the first project of the C++ module at [we think code_](https://www.wethinkcode.co.za/)
 
 >A simplified Virtual Machine that takes in ASM instructions to
